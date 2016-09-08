@@ -1,0 +1,4 @@
+sep. 08, 2016 1:32:17 PM Server AddUser
+INFO: LOGIN:Hej
+sep. 08, 2016 1:32:29 PM Server logout
+INFO: LOGOUT: Hej

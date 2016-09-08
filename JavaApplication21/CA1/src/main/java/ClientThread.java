@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -35,17 +36,18 @@ public class ClientThread extends Thread {
     @Override
     public void run() {
         try {
-            prnt.println("bah");
             String msg = scan.nextLine();
             String[] parts = msg.split(":");
             if (!parts[0].equals("LOGIN")) {
+                scan.close();
+                prnt.close();
+                socket.close();
                 return;
-                // Need to close socket
             } else {
                 server.AddUser(msg, this);
             }
 
-            while (!msg.equals("STOP")) {
+            while (!msg.equals("LOGOUT:")) {
                 msg = scan.nextLine();
                 String[] part = msg.split(":");
                 System.out.println(part[0]);
@@ -53,29 +55,15 @@ public class ClientThread extends Thread {
                     case "MSG":
                         server.msg(msg, this);
                         break;
-                    case "LOGOUT":
-                        this.socket.close();
-                        server.ctlist.remove(this);
-                        String s = "Clientlist: ";
-                        for (ClientThread user : server.ctlist) {
-                            s = s + user.getUsername() + ",";
-                        }
-                        s = s.substring(0, s.length() - 1);
-                        for (ClientThread user : server.ctlist) {
-                            user.send(s);
-                        }
-                        break;
-
                 }
             }
-
-            scan.close();
-            prnt.close();
-            socket.close();
-        } catch (IOException ex) {
+            
+            server.logout(this);
+            
+        } catch (NoSuchElementException | IOException ex) {
             Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+            server.logout(this);
         }
-
     }
 
     ClientThread(Socket link, Server server) throws IOException {

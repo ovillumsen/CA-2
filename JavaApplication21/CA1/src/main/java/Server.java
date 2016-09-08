@@ -22,19 +22,26 @@ import java.util.logging.Logger;
  */
 public class Server {
 
-    static String ip = "46.101.157.16";
+    static String ip = "localhost";
     static int port = 8080;
     ArrayList<ClientThread> ctlist = new ArrayList<>();
 
-    public void AddUser(String msg, ClientThread cli) {
-        String[] sa = msg.split(":");
-        cli.username = sa[1];
-        ctlist.add(cli);
-        for (int i = 0; i < ctlist.size(); i++) {
-            System.out.println(ctlist.get(i).username);
+    public void logout(ClientThread cli) {
+        try {
+            cli.scan.close();
+            cli.socket.close();
+            cli.prnt.close();
+            ctlist.remove(cli);
+            Logger.getLogger(Log.LOG_NAME).log(Level.INFO, "LOGOUT: "+cli.username);
+            printList();
+        } catch (IOException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Log.LOG_NAME).log(Level.SEVERE, null, ex);
         }
+    }
 
-        String s = "Clientlist: ";
+    public void printList() {
+        String s = "CLIENTLIST:";
         for (ClientThread user : ctlist) {
             s = s + user.getUsername() + ",";
         }
@@ -44,18 +51,30 @@ public class Server {
         }
     }
 
+    public void AddUser(String msg, ClientThread cli) {
+        String[] sa = msg.split(":");
+        cli.username = sa[1];
+        ctlist.add(cli);
+        Logger.getLogger(Log.LOG_NAME).log(Level.INFO, sa[0]+":"+sa[1]);
+        for (int i = 0; i < ctlist.size(); i++) {
+            System.out.println(ctlist.get(i).username);
+        }
+        printList();
+    }
+
     public void msg(String msg, ClientThread cli) {
         String[] sa = msg.split(":");
         if (sa[1].isEmpty()) {
             for (ClientThread user : ctlist) {
-                user.send("MSGRES:"+cli.username+":"+sa[2]);
+                user.send("MSGRES:" + cli.username + ":" + sa[2]);
             }
-        }else{
+        } else {
             String[] userlist = sa[1].split(",");
             for (ClientThread user : ctlist) {
                 for (String userl : userlist) {
-                    if(user.getUsername().equals(userl))
-                        user.send("MSGRES:"+cli.username+":"+sa[2]);
+                    if (user.getUsername().equals(userl)) {
+                        user.send("MSGRES:" + cli.username + ":" + sa[2]);
+                    }
                 }
             }
         }
@@ -69,9 +88,7 @@ public class Server {
             ServerSocket ss = new ServerSocket();
             ss.bind(new InetSocketAddress(ip, port));
             System.out.println("Started");
-
-            MyRunnable r = new MyRunnable();
-            executor.execute(r);
+            Log.setLogFile("logFile.txt", "ServerLog");
 
             executor.execute(() -> {
 
@@ -82,31 +99,17 @@ public class Server {
                         executor.execute(cli);
                     } catch (IOException ex) {
                         Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Log.LOG_NAME).log(Level.SEVERE, null, ex);
                     }
                 }
             });
-            String info;
-            while (true) {
-                info = "";
-                switch (info) {
-                    case "LOGIN:":
-
-                        break;
-                }
-            }
 
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Log.LOG_NAME).log(Level.SEVERE, null, ex);
+        } finally {
+            Log.closeLogger();
         }
     }
 
-    public static class MyRunnable implements Runnable {
-
-        @Override
-        public void run() {
-        }
-
-    }
 }

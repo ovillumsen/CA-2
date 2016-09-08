@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Observable;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,44 +19,74 @@ import java.util.logging.Logger;
 public class ClientThread extends Thread {
 
     protected Socket socket;
+    protected String username;
+    protected Server server;
+    Scanner scan;
+    PrintWriter prnt;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
     @Override
-    public void run(){
+    public void run() {
         try {
-            Scanner scan = new Scanner(socket.getInputStream());
-            PrintWriter prnt = new PrintWriter(socket.getOutputStream(), true);
-            String msg = "a";
-            prnt.println("Welcome");
+            prnt.println("bah");
+            String msg = scan.nextLine();
+            String[] parts = msg.split(":");
+            if (!parts[0].equals("LOGIN")) {
+                return;
+                // Need to close socket
+            } else {
+                server.AddUser(msg, this);
+            }
+
             while (!msg.equals("STOP")) {
                 msg = scan.nextLine();
-                if (msg.startsWith("UPPER#")) {
-                    String Input = msg.substring(6, msg.length());
-                    prnt.println(Input.toUpperCase());
-                    System.out.println("");
-                } else if (msg.startsWith("LOWER#")) {
-                    String Input = msg.substring(6, msg.length());
-                    prnt.println(Input.toLowerCase());
-                } else if (msg.startsWith("REVERSE#")) {
-                    String Input = msg.substring(8, msg.length());
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(Input);
-                    sb.reverse();
-                    prnt.println(sb.toString().substring(0, 1).toUpperCase() + sb.toString().substring(1, sb.length()));
-                } else if (msg.startsWith("LOGIN:")) {
-                    String[] Input = msg.split(":");
-                    prnt.println("Velkommen " + Input[1]);
+                String[] part = msg.split(":");
+                System.out.println(part[0]);
+                switch (part[0]) {
+                    case "MSG":
+                        server.msg(msg, this);
+                        break;
+                    case "LOGOUT":
+                        this.socket.close();
+                        server.ctlist.remove(this);
+                        String s = "Clientlist: ";
+                        for (ClientThread user : server.ctlist) {
+                            s = s + user.getUsername() + ",";
+                        }
+                        s = s.substring(0, s.length() - 1);
+                        for (ClientThread user : server.ctlist) {
+                            user.send(s);
+                        }
+                        break;
+
                 }
             }
+
             scan.close();
             prnt.close();
             socket.close();
         } catch (IOException ex) {
             Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    }
-       
+        }
 
-    ClientThread(Socket link) {
+    }
+
+    ClientThread(Socket link, Server server) throws IOException {
         this.socket = link;
+        this.server = server;
+        this.scan = new Scanner(socket.getInputStream());
+        this.prnt = new PrintWriter(socket.getOutputStream(), true);
     }
 
+    void send(String s) {
+        this.prnt.println(s);
+        this.prnt.flush();
+    }
 }

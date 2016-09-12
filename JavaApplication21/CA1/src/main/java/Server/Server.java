@@ -1,3 +1,5 @@
+package Server;
+
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,9 +24,18 @@ import java.util.logging.Logger;
  */
 public class Server {
 
-    static String ip = "localhost";
+    static String ip = "46.101.157.16";
     static int port = 8080;
     ArrayList<ClientThread> ctlist = new ArrayList<>();
+
+    public String getctlist() {
+        String s = "CLIENTLIST:";
+        for (ClientThread user : ctlist) {
+            s = s + user.getUsername() + ",";
+        }
+        s = s.substring(0, s.length() - 1);
+        return s;  
+    }
 
     public void logout(ClientThread cli) {
         try {
@@ -32,7 +43,7 @@ public class Server {
             cli.socket.close();
             cli.prnt.close();
             ctlist.remove(cli);
-            Logger.getLogger(Log.LOG_NAME).log(Level.INFO, "LOGOUT: "+cli.username);
+            Logger.getLogger(Log.LOG_NAME).log(Level.INFO, "LOGOUT: " + cli.username);
             printList();
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,7 +66,7 @@ public class Server {
         String[] sa = msg.split(":");
         cli.username = sa[1];
         ctlist.add(cli);
-        Logger.getLogger(Log.LOG_NAME).log(Level.INFO, sa[0]+":"+sa[1]);
+        Logger.getLogger(Log.LOG_NAME).log(Level.INFO, sa[0] + ":" + sa[1]);
         for (int i = 0; i < ctlist.size(); i++) {
             System.out.println(ctlist.get(i).username);
         }
@@ -107,8 +118,6 @@ public class Server {
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             Logger.getLogger(Log.LOG_NAME).log(Level.SEVERE, null, ex);
-        } finally {
-            Log.closeLogger();
         }
     }
 

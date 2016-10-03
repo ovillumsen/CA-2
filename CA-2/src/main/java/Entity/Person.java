@@ -6,6 +6,8 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +26,8 @@ public class Person implements Serializable {
     private int id;
     private String fn;
     private String ln;
-
+    List<Hobby> hobby = new ArrayList();
+    
     public int getId() {
         return id;
     }
@@ -47,6 +50,10 @@ public class Person implements Serializable {
 
     public void setLn(String ln) {
         this.ln = ln;
+    }
+
+    public List<Hobby> getHobby() {
+        return hobby;
     }
     
 }

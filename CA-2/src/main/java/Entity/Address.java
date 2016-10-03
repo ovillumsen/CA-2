@@ -24,6 +24,7 @@ public class Address implements Serializable {
     private int id;
     private String street;
     private String info;
+    private Cityinfo ci;
     
     public int getId() {
         return id;

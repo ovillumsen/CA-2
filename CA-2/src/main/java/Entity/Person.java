@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -19,18 +20,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@Table(name = "PERSON")
 public class Person extends InfoEntity {
 
     private static final long serialVersionUID = 1L;
     private String fn;
     private String ln;
+    
     @ManyToMany
-    @JoinTable(
-            name = "PersonHobbyList",
-            joinColumns = @JoinColumn(name = "PersonID", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "HobbyID", referencedColumnName = "id"))
     List<Hobby> hobby = new ArrayList();
-
+    
+    public Person(){
+        
+    }
+    
+    public Person(String fn,String ln){
+        this.fn = fn;
+        this.ln = ln;
+    }
+    
     public String getFn() {
         return fn;
     }
@@ -45,10 +53,6 @@ public class Person extends InfoEntity {
 
     public void setLn(String ln) {
         this.ln = ln;
-    }
-
-    public List<Hobby> getHobby() {
-        return hobby;
     }
 
 }

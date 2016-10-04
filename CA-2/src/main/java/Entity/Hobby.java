@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,6 +32,10 @@ public class Hobby implements Serializable {
     private String name;
     private String des;
     @ManyToMany
+    @JoinTable(
+            name = "PersonHobbyList",
+            joinColumns = @JoinColumn(name = "PersonID", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "HobbyID", referencedColumnName = "id"))
     List<Person> person = new ArrayList();
 
     public int getId() {
@@ -56,5 +62,4 @@ public class Hobby implements Serializable {
         this.des = des;
     }
 
-    
 }

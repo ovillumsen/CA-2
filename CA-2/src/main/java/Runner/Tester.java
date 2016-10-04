@@ -5,6 +5,7 @@
  */
 package Runner;
 
+import Entity.Person;
 import Facade.PersonFacade;
 
 /**
@@ -14,5 +15,9 @@ import Facade.PersonFacade;
 public class Tester {
     public static void main(String[] args) {
         PersonFacade PF =  new PersonFacade();
+        Person p = new Person();
+        p.setFn("Hello");
+        p.setLn("Harrow");
+        PF.addPerson(p);
     }
 }

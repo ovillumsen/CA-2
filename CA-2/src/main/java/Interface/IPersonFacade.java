@@ -18,5 +18,5 @@ public interface IPersonFacade {
     List<Person> getPersons();
     List<Person> getPersons(int zipcode);
     Boolean deletePerson(int ID);
-    Boolean editPerson(Person person, int ID);
+    Boolean editPerson(Person person);
 }

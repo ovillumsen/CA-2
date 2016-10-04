@@ -16,12 +16,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Thesoap
  */
 @Entity
+@XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class InfoEntity implements Serializable {
 

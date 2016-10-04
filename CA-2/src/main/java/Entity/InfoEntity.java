@@ -16,6 +16,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,15 +26,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "PERSON")
 public class InfoEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    
     private String email;
+    
     @OneToMany
     List<Phone> Phone = new ArrayList();
+    
     @ManyToOne
     private Address address;
     

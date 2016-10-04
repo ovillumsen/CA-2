@@ -20,23 +20,31 @@ import javax.persistence.Persistence;
 public class PersonFacade implements IPersonFacade {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2");
-
+    
+    @Override
     public boolean addPerson(Person person) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(person);
+        em.getTransaction().commit();
         em.close();
         return true;
     }
 
+    @Override
     public Person getPerson(int ID) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Person p = em.find(Person.class, ID);
-        em.close();
-        return p;
+        if (p != null) {
+            em.close();
+            return p;
+        }else{
+            return null;
+        }
     }
 
+    @Override
     public List<Person> getPersons() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -54,10 +62,12 @@ public class PersonFacade implements IPersonFacade {
         return PL;
     }
 
+    @Override
     public List<Person> getPersons(int zipcode) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public Boolean deletePerson(int ID) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -73,13 +83,14 @@ public class PersonFacade implements IPersonFacade {
         }
     }
 
+    @Override
     public Boolean editPerson(Person person) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(person);
         em.getTransaction().commit();
         em.close();
-        return true; 
+        return true;
     }
 
 }

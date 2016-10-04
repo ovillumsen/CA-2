@@ -12,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -26,8 +29,13 @@ public class Person implements Serializable {
     private int id;
     private String fn;
     private String ln;
+    @ManyToMany
+    @JoinTable(
+            name = "PersonHobbyList",
+            joinColumns = @JoinColumn(name = "PersonID", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "HobbyID", referencedColumnName = "id"))
     List<Hobby> hobby = new ArrayList();
-    
+
     public int getId() {
         return id;
     }
@@ -55,5 +63,5 @@ public class Person implements Serializable {
     public List<Hobby> getHobby() {
         return hobby;
     }
-    
+
 }

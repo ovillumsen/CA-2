@@ -28,12 +28,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(ErrorHandling.GenericExceptionMapper.class);
         resources.add(ErrorHandling.PersonNotFoundMapper.class);
-        resources.add(REST.AddressFacadeREST.class);
-        resources.add(REST.CityinfoFacadeREST.class);
-        resources.add(REST.HobbyFacadeREST.class);
-        resources.add(REST.InfoEntityFacadeREST.class);
-        resources.add(REST.PersonFacadeREST.class);
-        resources.add(REST.PhoneFacadeREST.class);
+        resources.add(REST.PersonRessource.class);
     }
 
 }

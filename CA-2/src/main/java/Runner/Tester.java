@@ -19,5 +19,10 @@ public class Tester {
         p.setFn("Hello");
         p.setLn("Harrow");
         PF.addPerson(p);
+        Person f =  new Person();
+        f.setId(1);
+        f.setFn("Bliv");
+        f.setLn("haps");
+        PF.editPerson(f);
     }
 }

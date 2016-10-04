@@ -20,7 +20,7 @@ import javax.persistence.Persistence;
 public class PersonFacade implements IPersonFacade {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2");
-    
+
     @Override
     public boolean addPerson(Person person) {
         EntityManager em = emf.createEntityManager();
@@ -39,7 +39,7 @@ public class PersonFacade implements IPersonFacade {
         if (p != null) {
             em.close();
             return p;
-        }else{
+        } else {
             return null;
         }
     }
@@ -74,6 +74,7 @@ public class PersonFacade implements IPersonFacade {
         Person p = em.find(Person.class, ID);
         if (p != null) {
             em.remove(p);
+            em.getTransaction().commit();
             em.getTransaction().commit();
             em.close();
             return true;

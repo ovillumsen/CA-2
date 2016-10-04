@@ -21,12 +21,10 @@ import javax.persistence.ManyToMany;
  * @author Thesoap
  */
 @Entity
-public class Person implements Serializable {
+public class Person extends InfoEntity {
 
     private static final long serialVersionUID = 1L;
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
     private String fn;
     private String ln;
     @ManyToMany
@@ -35,14 +33,6 @@ public class Person implements Serializable {
             joinColumns = @JoinColumn(name = "PersonID", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "HobbyID", referencedColumnName = "id"))
     List<Hobby> hobby = new ArrayList();
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFn() {
         return fn;

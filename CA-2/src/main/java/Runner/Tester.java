@@ -33,7 +33,9 @@ public class Tester {
         h.setName("Legion");
         
         PF.addPerson(p);
-        HF.addHobby(h);
-        PF.addHobby(h, p);
+        Person f =  new Person();
+        f.setFn("Bliv");
+        f.setLn("haps");
+        PF.addPerson(f);
     }
 }

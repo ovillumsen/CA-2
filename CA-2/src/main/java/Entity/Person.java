@@ -22,8 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(name = "PERSON")
 public class Person extends InfoEntity {
-
-    private static final long serialVersionUID = 1L;
+    
     private String fn;
     private String ln;
     

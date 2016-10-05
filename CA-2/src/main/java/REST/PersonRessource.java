@@ -9,10 +9,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("person/complete")
 public class PersonRessource {
@@ -44,6 +46,21 @@ public class PersonRessource {
         PersonFacade PF = new PersonFacade();
         Gson gson = new com.google.gson.GsonBuilder().create();
         return gson.toJson(PF.getPersons());
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addPerson(String text) {
+        Gson gson = new com.google.gson.GsonBuilder().create();
+        Person p = gson.fromJson(text, Person.class);
+        System.out.println(p.getFn());
+        //PersonFacade pf = new PersonFacade();
+        JsonObject jso = new JsonObject();
+        jso.addProperty("fn", p.getFn());
+        jso.addProperty("ln", p.getLn());
+        //pf.addPerson(p);
+        return Response.status(200).entity(jso).build();
     }
 
     @PUT

@@ -16,6 +16,7 @@ public class Tester {
     public static void main(String[] args) {
         PersonFacade PF =  new PersonFacade();
         Person p = new Person();
+        p.setId(2);
         p.setFn("Hello");
         p.setLn("Harrow");
         PF.addPerson(p);

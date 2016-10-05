@@ -7,9 +7,11 @@ package Runner;
 
 import Entity.Address;
 import Entity.Cityinfo;
+import Entity.Hobby;
 import Entity.Person;
 import Facade.AddressFacade;
 import Facade.CityinfoFacade;
+import Facade.HobbyFacade;
 import Facade.PersonFacade;
 
 /**
@@ -20,32 +22,18 @@ public class Tester {
 
     public static void main(String[] args) {
         PersonFacade PF = new PersonFacade();
-        CityinfoFacade CIF =  new CityinfoFacade();
-        AddressFacade AF = new AddressFacade();
+        HobbyFacade HF = new HobbyFacade();
+        
         Person p = new Person();
-        Address address = new Address();
+        Hobby h = new Hobby();
         
-        p.setFn("Hello");
-        p.setLn("Harrow");
+        p.setFn("Tim");
+        p.setLn("Hemmingsen");
 
+        h.setName("Legion");
         
-        Cityinfo CI = new Cityinfo();
-        CI.setZipCode("2770");
-        CI.setCity("Kastrup");
-        address.setCi(CI);
-        address.IE.add(p);
-        CI.AL.add(address);
-        CIF.addCityinfo(CI);
-        
-
-//        AF.addAddress(address);
-        
-        
-//        p.setAddress(address);
-//        Person f =  new Person();
-//        f.setId(1);
-//        f.setFn("Bliv");
-//        f.setLn("haps");
-//        PF.editPerson(f);
+        PF.addPerson(p);
+        HF.addHobby(h);
+        PF.addHobby(h, p);
     }
 }

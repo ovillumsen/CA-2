@@ -7,6 +7,7 @@ package Facade;
 
 import Entity.Address;
 import Entity.InfoEntity;
+import Entity.Person;
 import Interface.IAddressFacade;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,7 +33,18 @@ public class AddressFacade implements IAddressFacade {
 
     @Override
     public boolean deleteAddress(Address address) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Address a = em.find(Address.class, address.getId());
+        if (a != null) {
+            em.remove(a);
+            em.getTransaction().commit();
+            em.close();
+            return true;
+        } else {
+            em.close();
+            return false;
+        }
     }
 
     @Override

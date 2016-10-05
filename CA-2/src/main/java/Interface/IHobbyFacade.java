@@ -5,14 +5,14 @@
  */
 package Interface;
 
-import Entity.Cityinfo;
+import Entity.Hobby;
 
 /**
  *
  * @author Thesoap
  */
-public interface ICityinfoFacade {
-    boolean addCityinfo(Cityinfo CI);
-    boolean deleteCityinfo(int ID);
-    boolean editCityinfo(Cityinfo CI);
+public interface IHobbyFacade {
+    boolean addHobby(Hobby hobby);
+    boolean deleteHobby(Hobby hobby);
+    boolean editHobby(Hobby hobby);
 }

@@ -5,6 +5,7 @@
  */
 package Facade;
 
+import Entity.Hobby;
 import Entity.Person;
 import Interface.IPersonFacade;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class PersonFacade implements IPersonFacade {
     @Override
     public List<Person> getPersons(int zipcode) {
         List<Person> PL = new ArrayList();
-        
+
         return PL;
     }
 
@@ -93,6 +94,19 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(person);
+        em.getTransaction().commit();
+        em.close();
+        return true;
+    }
+
+    @Override
+    public boolean addHobby(Hobby hobby, Person person) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        person.hobby.add(hobby);
+        hobby.person.add(person);
+        em.merge(person);
+        em.merge(hobby);
         em.getTransaction().commit();
         em.close();
         return true;

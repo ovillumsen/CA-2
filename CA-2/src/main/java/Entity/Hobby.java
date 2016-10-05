@@ -36,7 +36,7 @@ public class Hobby implements Serializable {
             name = "PersonHobbyList",
             joinColumns = @JoinColumn(name = "PersonID", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "HobbyID", referencedColumnName = "id"))
-    List<Person> person = new ArrayList();
+    public List<Person> person = new ArrayList();
 
     public Hobby() {
     }

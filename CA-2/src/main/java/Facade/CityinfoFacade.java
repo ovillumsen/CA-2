@@ -5,9 +5,8 @@
  */
 package Facade;
 
-import Entity.Address;
-import Entity.InfoEntity;
-import Interface.IAddressFacade;
+import Entity.Cityinfo;
+import Interface.ICityinfoFacade;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,32 +15,22 @@ import javax.persistence.Persistence;
  *
  * @author Thesoap
  */
-public class AddressFacade implements IAddressFacade {
+public class CityinfoFacade implements ICityinfoFacade {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2");
 
     @Override
-    public boolean addAddress(Address address) {
+    public boolean addCityinfo(Cityinfo CI) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.persist(address);
+        em.persist(CI);
         em.getTransaction().commit();
         em.close();
         return true;
     }
 
     @Override
-    public boolean deleteAddress(Address address) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean editAddress(Address address) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Address getAddress(InfoEntity IE) {
+    public boolean deleteCityinfo(int ID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

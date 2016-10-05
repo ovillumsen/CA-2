@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class InfoEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     private String email;
@@ -40,6 +40,7 @@ public class InfoEntity implements Serializable {
     
     @ManyToOne
     private Address address;
+    
     
     
     public int getId() {

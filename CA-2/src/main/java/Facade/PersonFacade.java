@@ -67,7 +67,9 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public List<Person> getPersons(int zipcode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Person> PL = new ArrayList();
+        
+        return PL;
     }
 
     @Override

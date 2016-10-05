@@ -36,6 +36,7 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Person p = em.find(Person.class, ID);
+        em.getTransaction().commit();
         if (p != null) {
             em.close();
             return p;
@@ -59,6 +60,8 @@ public class PersonFacade implements IPersonFacade {
                 break;
             }
         }
+        em.getTransaction().commit();
+        em.close();
         return PL;
     }
 
@@ -74,7 +77,6 @@ public class PersonFacade implements IPersonFacade {
         Person p = em.find(Person.class, ID);
         if (p != null) {
             em.remove(p);
-            em.getTransaction().commit();
             em.getTransaction().commit();
             em.close();
             return true;

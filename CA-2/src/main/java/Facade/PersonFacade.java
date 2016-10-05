@@ -12,6 +12,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -44,22 +45,28 @@ public class PersonFacade implements IPersonFacade {
         }
     }
 
-    @Override
-    public List<Person> getPersons() {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        int i = 0;
-        List<Person> PL = new ArrayList();
-        while (true) {
-            Person p = em.find(Person.class, i);
-            if (p != null) {
-                PL.add(p);
-                i++;
-            } else {
-                break;
-            }
-        }
-        return PL;
+//    @Override
+//    public List<Person> getPersons() {
+//        EntityManager em = emf.createEntityManager();
+//        em.getTransaction().begin();
+//        int i = 1;
+//        List<Person> PL = new ArrayList();
+//        while (true) {
+//            Person p = em.find(Person.class, i);
+//            if (p != null) {
+//                PL.add(p);
+//                i++;
+//            } else {
+//                break;
+//            }
+//        }
+//        return PL;
+//    }
+    
+    public List<Person> getPersons(){
+        EntityManager em = emf.createEntityManager();   
+        TypedQuery<Person> persons = em.createQuery("SELECT p FROM Person p", Person.class);
+        return persons.getResultList();
     }
 
     @Override

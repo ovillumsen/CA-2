@@ -16,14 +16,12 @@ public class Tester {
     public static void main(String[] args) {
         PersonFacade PF =  new PersonFacade();
         Person p = new Person();
-        p.setId(2);
         p.setFn("Hello");
         p.setLn("Harrow");
         PF.addPerson(p);
         Person f =  new Person();
-        f.setId(1);
         f.setFn("Bliv");
         f.setLn("haps");
-        PF.editPerson(f);
+        PF.addPerson(f);
     }
 }

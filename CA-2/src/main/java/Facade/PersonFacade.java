@@ -5,9 +5,11 @@
  */
 package Facade;
 
+import Entity.Hobby;
 import Entity.Person;
 import Entity.Phone;
 import Interface.IPersonFacade;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,21 +25,21 @@ public class PersonFacade implements IPersonFacade {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2");
 
     @Override
-    public Person addPerson(Person person, Phone phone) {
+    public Person addPerson(Person person) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(person);
-        em.persist(phone);
         em.getTransaction().commit();
         em.close();
         return person;
     }
-
+    
     @Override
     public Person getPerson(int ID) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Person p = em.find(Person.class, ID);
+        em.getTransaction().commit();
         if (p != null) {
             em.close();
             return p;
@@ -63,7 +65,6 @@ public class PersonFacade implements IPersonFacade {
 //        }
 //        return PL;
 //    }
-    @Override
     public List<Person> getPersons(){
         EntityManager em = emf.createEntityManager();   
         TypedQuery<Person> persons = em.createQuery("SELECT p FROM Person p", Person.class);
@@ -72,7 +73,9 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public List<Person> getPersons(int zipcode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Person> PL = new ArrayList();
+
+        return PL;
     }
 
     @Override
@@ -82,7 +85,6 @@ public class PersonFacade implements IPersonFacade {
         Person p = em.find(Person.class, ID);
         if (p != null) {
             em.remove(p);
-            em.getTransaction().commit();
             em.getTransaction().commit();
             em.close();
             return true;
@@ -97,6 +99,32 @@ public class PersonFacade implements IPersonFacade {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(person);
+        em.getTransaction().commit();
+        em.close();
+        return true;
+    }
+
+    @Override
+    public boolean addHobby(Hobby hobby, Person person) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        person.hobby.add(hobby);
+        hobby.person.add(person);
+        em.merge(person);
+        em.merge(hobby);
+        em.getTransaction().commit();
+        em.close();
+        return true;
+    }
+
+    @Override
+    public boolean addPhone(Phone phone, Person person) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        person.phone.add(phone);
+        phone.setIE(person);
+        em.merge(person);
+        em.merge(phone);
         em.getTransaction().commit();
         em.close();
         return true;

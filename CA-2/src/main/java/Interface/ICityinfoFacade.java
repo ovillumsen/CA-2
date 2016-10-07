@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Runner;
+package Interface;
 
-import javax.persistence.Persistence;
+import Entity.Cityinfo;
 
 /**
  *
  * @author Thesoap
  */
-public class Builder {
-    public static void main(String[] args) {
-    Persistence.generateSchema ("CA2", null);  
-    }
+public interface ICityinfoFacade {
+    boolean addCityinfo(Cityinfo CI);
+    boolean deleteCityinfo(int ID);
+    boolean editCityinfo(Cityinfo CI);
 }

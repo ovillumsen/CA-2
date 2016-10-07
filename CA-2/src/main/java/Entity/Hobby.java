@@ -27,7 +27,7 @@ public class Hobby implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String des;
@@ -36,7 +36,14 @@ public class Hobby implements Serializable {
             name = "PersonHobbyList",
             joinColumns = @JoinColumn(name = "PersonID", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "HobbyID", referencedColumnName = "id"))
-    List<Person> person = new ArrayList();
+    public List<Person> person = new ArrayList();
+
+    public Hobby() {
+    }
+    
+    
+    
+    
 
     public int getId() {
         return id;

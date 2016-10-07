@@ -37,9 +37,24 @@ public class PersonRessource {
         person.addProperty("Firstname", p.getFn());
         person.addProperty("LastName", p.getLn());
         String jsonRes = gson.toJson(person);
+//        String person1 = p.getFn() + p.getLn();
         return jsonRes;
     }
 
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getAllPerson(){
+//        Gson gson = new com.google.gson.GsonBuilder().create();
+//        JsonArray array = new JsonArray();
+//        PersonFacade PF = new PersonFacade();
+//        for (int i = 0; i < array.size(); i++) {
+//            Person p = PF.getPerson(i);
+//            array.add(p.getFn());
+//            array.add(p.getLn());
+//        }
+//        String jsonRes = gson.toJson(array);
+//        return jsonRes;
+//    }
     @GET
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)

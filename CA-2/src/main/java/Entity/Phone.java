@@ -23,12 +23,17 @@ public class Phone implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int nr;
     private String des;
     @ManyToOne
     private InfoEntity IE;
+
+    public Phone() {
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -52,6 +57,14 @@ public class Phone implements Serializable {
 
     public void setDes(String des) {
         this.des = des;
+    }
+
+    public InfoEntity getIE() {
+        return IE;
+    }
+
+    public void setIE(InfoEntity IE) {
+        this.IE = IE;
     }
     
 }

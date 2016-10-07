@@ -5,7 +5,13 @@
  */
 package Runner;
 
+import Entity.Address;
+import Entity.Cityinfo;
+import Entity.Hobby;
 import Entity.Person;
+import Facade.AddressFacade;
+import Facade.CityinfoFacade;
+import Facade.HobbyFacade;
 import Entity.Phone;
 import Facade.PersonFacade;
 
@@ -14,21 +20,36 @@ import Facade.PersonFacade;
  * @author Thesoap
  */
 public class Tester {
+
     public static void main(String[] args) {
-        PersonFacade PF =  new PersonFacade();
+        PersonFacade PF = new PersonFacade();
+        HobbyFacade HF = new HobbyFacade();
+        
         Person p = new Person();
         Phone ph = new Phone();
-        p.setFn("Hello");
-        p.setLn("Harrow");
+        Hobby ho = new Hobby();
+        p.setFn("Hans");
+        p.setLn("Hansen");
         ph.setNr(28286825);
         ph.setDes("Bob");
-        PF.addPerson(p, ph);
+        ho.setDes("Danse Danse!!!");
+        ho.setName("Ballet");
+        PF.addPerson(p);
+        
+        
+        Hobby h = new Hobby();
+        p.setFn("Tim");
+        p.setLn("Hemmingsen");
+        h.setName("Legion");
+        
+        PF.addPerson(p);
+        
         Person f =  new Person();
         Phone pho = new Phone();
         f.setFn("Bliv");
         f.setLn("haps");
         pho.setNr(12345678);
         pho.setDes("Random");
-        PF.addPerson(f, pho);
+        PF.addPerson(f);
     }
 }

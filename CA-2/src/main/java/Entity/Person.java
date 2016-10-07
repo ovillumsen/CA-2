@@ -7,6 +7,7 @@ package Entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -24,8 +25,8 @@ public class Person extends InfoEntity {
     private String fn;
     private String ln;
     
-    @ManyToMany
-    List<Hobby> hobby = new ArrayList();
+    @ManyToMany(mappedBy = "person",cascade = CascadeType.PERSIST)
+    public List<Hobby> hobby = new ArrayList();
     
     public Person(){
         
@@ -51,5 +52,4 @@ public class Person extends InfoEntity {
     public void setLn(String ln) {
         this.ln = ln;
     }
-
 }

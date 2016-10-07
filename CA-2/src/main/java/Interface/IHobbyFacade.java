@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Runner;
+package Interface;
 
-import javax.persistence.Persistence;
+import Entity.Hobby;
 
 /**
  *
  * @author Thesoap
  */
-public class Builder {
-    public static void main(String[] args) {
-    Persistence.generateSchema ("CA2", null);  
-    }
+public interface IHobbyFacade {
+    boolean addHobby(Hobby hobby);
+    boolean deleteHobby(Hobby hobby);
+    boolean editHobby(Hobby hobby);
 }

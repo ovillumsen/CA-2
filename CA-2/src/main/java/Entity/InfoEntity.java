@@ -8,6 +8,7 @@ package Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,16 +31,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class InfoEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     private String email;
     
-    @OneToMany
-    List<Phone> Phone = new ArrayList();
+    @OneToMany(cascade = CascadeType.PERSIST)
+    public List<Phone> phone = new ArrayList();
     
     @ManyToOne
     private Address address;
+    
     
     
     public int getId() {

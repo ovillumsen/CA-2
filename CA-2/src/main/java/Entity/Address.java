@@ -8,6 +8,7 @@ package Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,14 +27,19 @@ public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String street;
     private String info;
     @ManyToOne
     private Cityinfo ci;
-    @OneToMany
-    List<InfoEntity> IE = new ArrayList();
+    @OneToMany(cascade = CascadeType.PERSIST)
+    public List<InfoEntity> IE = new ArrayList();
+
+    public Address() {
+    }
+    
+    
     
     public int getId() {
         return id;
@@ -58,5 +64,15 @@ public class Address implements Serializable {
     public void setInfo(String info) {
         this.info = info;
     }
+
+    public Cityinfo getCi() {
+        return ci;
+    }
+
+    public void setCi(Cityinfo ci) {
+        this.ci = ci;
+    }
+
+    
     
 }

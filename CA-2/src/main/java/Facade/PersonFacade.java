@@ -7,6 +7,7 @@ package Facade;
 
 import Entity.Hobby;
 import Entity.Person;
+import Entity.Phone;
 import Interface.IPersonFacade;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +100,11 @@ public class PersonFacade implements IPersonFacade {
         em.getTransaction().commit();
         em.close();
         return true;
+    }
+
+    @Override
+    public boolean addPhone(Phone phone, Person person) {
+    return true;
     }
 
 }

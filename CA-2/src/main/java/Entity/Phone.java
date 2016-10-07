@@ -32,9 +32,7 @@ public class Phone implements Serializable {
 
     public Phone() {
     }
-    
-    
-
+   
     public int getId() {
         return id;
     }
@@ -57,6 +55,14 @@ public class Phone implements Serializable {
 
     public void setDes(String des) {
         this.des = des;
+    }
+
+    public InfoEntity getIE() {
+        return IE;
+    }
+
+    public void setIE(InfoEntity IE) {
+        this.IE = IE;
     }
     
 }

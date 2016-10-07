@@ -6,6 +6,7 @@
 package Interface;
 
 import Entity.Person;
+import Entity.Phone;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * @author Thesoap
  */
 public interface IPersonFacade {
-    boolean addPerson(Person person); 
+    Person addPerson(Person person, Phone phone); 
     Person getPerson(int ID);
     List<Person> getPersons();
     List<Person> getPersons(int zipcode);

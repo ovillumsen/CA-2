@@ -6,8 +6,8 @@
 package Facade;
 
 import Entity.Person;
+import Entity.Phone;
 import Interface.IPersonFacade;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,13 +23,14 @@ public class PersonFacade implements IPersonFacade {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2");
 
     @Override
-    public boolean addPerson(Person person) {
+    public Person addPerson(Person person, Phone phone) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(person);
+        em.persist(phone);
         em.getTransaction().commit();
         em.close();
-        return true;
+        return person;
     }
 
     @Override
@@ -62,7 +63,7 @@ public class PersonFacade implements IPersonFacade {
 //        }
 //        return PL;
 //    }
-    
+    @Override
     public List<Person> getPersons(){
         EntityManager em = emf.createEntityManager();   
         TypedQuery<Person> persons = em.createQuery("SELECT p FROM Person p", Person.class);

@@ -24,13 +24,16 @@ public class PersonFacade implements IPersonFacade {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2");
 
     @Override
-    public boolean addPerson(Person person) {
+    public Person addPerson(Person person) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(person);
-        em.getTransaction().commit();
-        em.close();
-        return true;
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+            return person;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
@@ -64,9 +67,8 @@ public class PersonFacade implements IPersonFacade {
 //        }
 //        return PL;
 //    }
-    
-    public List<Person> getPersons(){
-        EntityManager em = emf.createEntityManager();   
+    public List<Person> getPersons() {
+        EntityManager em = emf.createEntityManager();
         TypedQuery<Person> persons = em.createQuery("SELECT p FROM Person p", Person.class);
         return persons.getResultList();
     }
@@ -95,13 +97,13 @@ public class PersonFacade implements IPersonFacade {
     }
 
     @Override
-    public Boolean editPerson(Person person) {
+    public Person editPerson(Person person) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.merge(person);
         em.getTransaction().commit();
         em.close();
-        return true;
+        return person;
     }
 
     @Override

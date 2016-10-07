@@ -41,9 +41,7 @@ public class InfoEntity implements Serializable {
     
     @ManyToOne
     private Address address;
-    
-    
-    
+   
     public int getId() {
         return id;
     }

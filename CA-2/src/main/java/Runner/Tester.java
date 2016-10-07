@@ -29,13 +29,6 @@ public class Tester {
         
         p.setFn("Tim");
         p.setLn("Hemmingsen");
-
-        h.setName("Legion");
-        
         PF.addPerson(p);
-        Person f =  new Person();
-        f.setFn("Bliv");
-        f.setLn("haps");
-        PF.addPerson(f);
     }
 }

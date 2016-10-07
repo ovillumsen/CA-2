@@ -14,11 +14,11 @@ import java.util.List;
  * @author Thesoap
  */
 public interface IPersonFacade {
-    boolean addPerson(Person person); 
+    Person addPerson(Person person); 
     Person getPerson(int ID);
     List<Person> getPersons();
     List<Person> getPersons(int zipcode);
     Boolean deletePerson(int ID);
-    Boolean editPerson(Person person);
+    Person editPerson(Person person);
     boolean addHobby(Hobby hobby,Person person);
 }

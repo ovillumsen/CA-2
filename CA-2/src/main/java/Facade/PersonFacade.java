@@ -35,7 +35,7 @@ public class PersonFacade implements IPersonFacade {
             em.close();
         }
     }
-
+    
     @Override
     public Person getPerson(int ID) {
         EntityManager em = emf.createEntityManager();
@@ -104,7 +104,15 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public boolean addPhone(Phone phone, Person person) {
-    return true;
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        person.phone.add(phone);
+        phone.setIE(person);
+        em.merge(person);
+        em.merge(phone);
+        em.getTransaction().commit();
+        em.close();
+        return true;
     }
 
 }

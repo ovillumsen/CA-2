@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        Før vi starter vores Junit test kører vi en beforeclass for at få noget<br>
+        information ned i vores database. Vi har også brugt en fælles PersonFacade<br>
+        i stedet for at oprette en ny hver gang.Vores første test tester vores<br>
+        addUser metode. Denne metode tager imod et person objekt og returnere det<br>
+        nye person objekt tilbage med ID. I testen opretter vi et person objekt<br>
+        og giver det et navn og efternavn og kalder addPerson med objektet.<br>
+        Vi gemmer return valuen i en person. Derefter opretter vi en ny person<br>
+        og giver den samme navn, efternavn og det samme ID som den første person<br>
+        skal have. Vi tester så om de har det samme ID.Næste test tester vores <br>
+        getPerson som tager imod en int som er det ID som personen man vil hente har.<br>
+        Metoden returnere derefter person objektet tilbage. Vi ser så om det<br>
+        returnerede person objekt har samme navn som det vi forventer. Vores <br>
+        deletePerson metode tager imod et id og sletter personen fra databasen.<br>
+        Hvis det valgte ID ikke ligger i databasen vil metoden returnere false.<br>
+        Hvis metoden finder en person i databasen med det givne ID vil den returnere true.<br>
+        Den sidste test er vores editperson som tager imod et person objekt.<br>
+        I testen opretter vi en person og giver personen et navn og efternavn.<br>
+        Derefter smider vi personen i databasen. Vi giver derefter person objektet<br>
+        et nyt navn og kalder editperson. Vi tester så om det nye objekt vi får er<br>
+        ens med det opdaterede.<br>
+    </body>
+</html>

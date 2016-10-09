@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        Test af vores REST API<br>
+        Vi tester vores REST API metoder ved at udføre REST assured test på dem.<br>
+        For at kunne gøre det har vi indsat nogle plugins i vores pom fil samt<br>
+        lavet en @Beforeclass i vores testklasse. Metoden setUpBeforeAll() sørger<br>
+        for at vores baseURI, port, basePath og defaultParser er i orden.<br>
+        Vi sætter baseURI til "http://localhost" som er det vores URL starter<br>
+        med når vi kører programmet. Port nummeret bliver sat til 8080 som bliver<br>
+        brugt som standard. basePath bliver sat til "/CA-2" som er navnet på vores<br>
+        projekt. DefaultParser bliver sat til Json som er det vi bruger til at lave data om.<br>
+        <br>
+        Den første test vi udfører, er for at se om vores server er startet og kører.<br>
+        Testen serverIsRunning() tjekker om vores server kører, så hvis vi har<br>
+        startet serveren først vil testen give rigtigt. Når serveren kører kan<br>
+        vi udføre test på vores API metoder. Vi tester vores getPerson metode<br>
+        på 3 forskellige måder. Den første test som bare hedder getPerson() ser om<br>
+        den person vi henter ud gennem vores API på et givent ID stemmer overens<br>
+        med den person med det samme ID i databasen.<br>
+        Udover at tjekke om vores API metode virker kan vi teste på hvilke fejl vi<br>
+        får, hvis der bliver indtastet noget forkert i forhold til vores API.<br>
+        Test metoderne getPersonWrongArguments og getPersonWrongRoute ser hvordan<br>
+        vores program håndterer hvis der bliver givet forkerte argumenter eller<br>
+        rute til vores API metoder.<br>
+        <a href="documentation.html">documentation</a>
+    </body>
+</html>

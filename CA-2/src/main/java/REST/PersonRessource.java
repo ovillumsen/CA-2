@@ -86,5 +86,6 @@ public class PersonRessource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
+        
     }
 }

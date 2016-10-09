@@ -80,38 +80,6 @@ public class PersonFacadeTest {
         assertEquals(expResult.getFn(), result.getFn());
     }
 
-    /**
-     * Test of getPersons method, of class PersonFacade.
-     */
-    @Test
-    public void testGetPersons_0args() {
-        System.out.println("getPersons");
-        PersonFacade instance = new PersonFacade();
-        List<Person> expResult = null;
-        List<Person> result = instance.getPersons();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getPersons method, of class PersonFacade.
-     */
-    @Test
-    public void testGetPersons_int() {
-        System.out.println("getPersons");
-        int zipcode = 0;
-        PersonFacade instance = new PersonFacade();
-        List<Person> expResult = null;
-        List<Person> result = instance.getPersons(zipcode);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of deletePerson method, of class PersonFacade.
-     */
     @Test
     public void testDeletePerson() {
         boolean result = PF.deletePerson(1);
@@ -125,29 +93,13 @@ public class PersonFacadeTest {
     @Test
     public void testEditPerson() {
         System.out.println("editPerson");
-        Person person = null;
-        PersonFacade instance = new PersonFacade();
-        Person expResult = null;
-        Person result = instance.editPerson(person);
+        Person p1 = new Person();
+        p1.setFn("Tim");
+        p1.setLn("Hemmingsen");
+        PF.addPerson(p1);
+        p1.setFn("Kevin");
+        Person result = PF.editPerson(p1);
+        Person expResult = p1;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of addHobby method, of class PersonFacade.
-     */
-    @Test
-    public void testAddHobby() {
-        System.out.println("addHobby");
-        Hobby hobby = null;
-        Person person = null;
-        PersonFacade instance = new PersonFacade();
-        boolean expResult = false;
-        boolean result = instance.addHobby(hobby, person);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
 }

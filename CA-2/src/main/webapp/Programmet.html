@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        Hvordan man bruger programmet:<br>
+        Som vores program er bygget op forhindrer vores REST assured test at vi starter<br> 
+        programmet så længe serveren ikke kører. Da serveren ikke kører første gang man<br>
+        starter projektet er det derfor nødvendigt at gå ind i ServiceIntegrationTest<br>
+        filen og udkommentere alle vores test. Efter at have gjort det kan man starte <br>
+        projektet og dermed få startet serveren. Når det er gjort skal de test der blev <br>
+        udkemmenteret sættes ind igen. Nu kører både serveren og projektet og det er <br>
+        dermed muligt at teste vores API metoder ved at skrive op i vores URL.<br>
+        Der er ikke blevet indført så mange API metoder der virker, men det er muligt at,<br>
+        få en person fra databasen, få alle personer fra databasen og tilføje en person til databasen.<br>
+        For at få 1 person op fra databasen skal der stå "/CA-2/api/person/{id}",<br>
+        hvor id skal erstattes med det id på personen man vil have.<br>
+        For at få alle personer fra databasen skal der stå "/CA-2/api/person/all".<br>
+        For at tilføje en person til databasen skal der stå "/CA-2/api/person/add".<br>
+
+        Udover at kunne teste det ud fra vores URL er der også lavet<br>
+        almindelige Unit Test og REST Assured Test.Unit Test kan findes i<br>
+        filen PersonFacadeTest og REST Assured test kan findes i ServiceIntegrationTest.<br>
+        <a href="documentation.html">documentation</a>
+    </body>
+</html>

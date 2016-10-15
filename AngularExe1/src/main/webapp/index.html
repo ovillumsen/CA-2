@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
+    </head>
+    <body ng-controller="MyControl as ctrl">
+        <div class="container"> 
+            <table>
+                <tr ng-repeat="person in ctrl.persons">
+                    <td><a href="#/list?q={{person.id}}">{{person.id}}</a></td>
+                    <td>{{person.name}}</td>
+                </tr>
+            </table>
+            <div ng-view></div>
+        </div>
+
+        <script>
+                    var app = angular.module('MyApp', ['ngRoute']);
+
+                    app.controller('MyControl', ['$http', 'MyService', function ($http, MyService, MyFactory) {
+                            var self = this;
+                            this.persons = persons;
+                        }]).config(['$routeProvider', function ($routeProvider) {
+                            $routeProvider
+                                    .when('/', {
+                                        template: '<h5>Vælg en person</h5>'
+                                    }).when('/list', {
+                                template: 'Name: {{extCtrl.name}}<br>Age: {{extCtrl.age}}<br>\n\
+                        <a href="#/">return</a>',
+                                controller: ['$routeParams', 'MyService', function ($routeParams, MyService) {
+                                        this.q = $routeParams.q-1; //q is the name of the url property to use
+                                        this.id = persons[$routeParams.q-1].id;
+                                        this.name = persons[$routeParams.q-1].name;
+                                        this.age = persons[$routeParams.q-1].age;
+                                    }],
+                                controllerAs: 'extCtrl'
+                            })
+                                    .otherwise({redirectTo: '/'});
+                        }]);
+
+                    app.service('MyService', function () {
+                        var self = this;
+                        self.temp = 'sometext';
+                    });
+                    var persons = [
+                        {id: 1, name: "Jens", age: 18}
+                        , {id: 2, name: "Peter", age: 23}
+                        , {id: 3, name: "Hanne", age: 23}
+                    ];
+        </script>
+    </body>
+</html>

@@ -12,11 +12,11 @@
                 <tr ng-repeat="person in ctrl.persons">
                     <td><a href="#/list?q={{person.id}}">{{person.id}}</a></td>
                     <td>{{person.name}}</td>
+                    apsid
                 </tr>
             </table>
             <div ng-view></div>
         </div>
-
         <script>
                     var app = angular.module('MyApp', ['ngRoute']);
 

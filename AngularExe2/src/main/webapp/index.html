@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="DemoApp" ng-controller="CarController as ctrl">
+    <head lang="en">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
+        <script type="text/javascript" src="https://code.angularjs.org/1.4.7/i18n/angular-locale_da.js"></script>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <meta charset="UTF-8">
+        <title>{{ctrl.title}}</title>
+    </head>
+    <body class='container'>
+        <h1>{{ctrl.title}}</h1>
+
+        <label>Search: <input ng-model="searchText"></label>
+        <h2> Number of cars: {{ctrl.cars.length}}</h2>
+        <table class="table">
+            <tr>
+                <td>index</td>
+                <td><button ng-click="ctrl.predicate = 'year';ctrl.reverse = !ctrl.reverse">Year</button></td>
+                <td><button ng-click="ctrl.predicate = 'registered';ctrl.reverse = !ctrl.reverse">Registered</button></td>
+                <td><button ng-click="ctrl.predicate = 'make';ctrl.reverse = !ctrl.reverse">make</button></td>
+                <td><button ng-click="ctrl.predicate = 'model';ctrl.reverse = !ctrl.reverse">model</button></td>
+                <td><button ng-click="ctrl.predicate = 'description';ctrl.reverse = !ctrl.reverse">description</button></td>
+                <td><button ng-click="ctrl.predicate = 'price';ctrl.reverse = !ctrl.reverse">price</button></td>
+            </tr>
+            <tr ng-repeat="car in ctrl.cars| filter:searchText |orderBy:ctrl.predicate:ctrl.reverse">
+                <td>{{$index + 1}}</td>
+                <td>{{car.year}}</td>
+                <td>{{car.registered| date}}</td>
+                <td>{{car.make}}</td>
+                <td>{{car.model}}</td>
+                <td>{{car.description}}</td>
+                <td>{{car.price| currency}}</td>
+            </tr>
+        </table>
+        <script>
+                    var myApp = angular.module('DemoApp', []);
+                    myApp.controller('CarController', [function () {
+                            var self = this;
+                            self.cars = [
+                                {year: 1997, registered: 867621600000, make: 'Ford', model: 'E350', description: 'ac, abs, moon', price: 3000}
+                                , {year: 1999, registered: 945212400000, make: 'Chevy', model: 'Venture', description: 'None', price: 4900}
+                                , {year: 2000, registered: 953766000000, make: 'Chevy', model: 'Venture', description: '', price: 5000}
+                                , {year: 1996, registered: 844380000000, make: 'Jeep', model: 'Grand Cherokee', description: 'Air, moon roof,loaded', price: 4799}
+                            ];
+                            self.reverse = true;
+                            self.title = "Cars Demo App";
+                            self.predicate = 'make';
+
+                            self.sortBy = function (propertyName) {
+                                self.reverse = (self.propertyName === propertyName) ? !self.reverse : false;
+                                self.propertyName = propertyName;
+                            };
+                        }]);
+        </script>
+    </body>
+</html>

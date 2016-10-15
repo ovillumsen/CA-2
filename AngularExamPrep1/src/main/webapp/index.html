@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="MyApp" ng-controller="UserController as ctrl">
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
+        <script type="text/javascript" src="https://code.angularjs.org/1.4.7/i18n/angular-locale_da.js"></script>
+    </head>
+    <body>
+        <table class="table">
+            <thead >
+                <tr>
+                    <td><a href="#/list?q=1">1</a></td>
+                    <td><a href="#/list?q=2">2</a></td>
+                    <td><a href="#/list?q=3">3</a></td>
+                </tr>
+            </thead>
+            <div ng-view></div>
+            <script>
+                        var app = angular.module('MyApp', ['ngRoute']);
+
+                        var users = [];
+
+                        app.controller("UserController", function ($http, $routeParams) {
+                            var self = this;
+                            if (users.length === 0) {
+                                $http.get("data/data.json").success(function (data) {
+                                    users = data.users;
+                                    self.users = users;
+                                })
+                            } else { //We used the cache property on the http request instead
+                                self.users = users;
+                            }
+                            if (users != null) {
+                                console.log("Adding user: " + $routeParams.id)
+                                self.user = users[$routeParams.id];
+                            }
+                            self.getList = function () {
+                                
+                            }
+                        }).config(['$routeProvider', function ($routeProvider, UserController) {
+                                $routeProvider
+
+                                        .when('/', {
+                                            template: 'Ingen person er valgt'
+                                        }).when('/list', {
+                                template: 'Person:{{extCtrl.q}} er valgt<br><a href="#/">return</a>',
+                                controller: ['$routeParams', 'MyService', function ($routeParams, MyService) {
+                                        this.q = $routeParams.q; //q is the name of the url property to use
+                                    }],
+                                controllerAs: 'extCtrl'
+                            })
+                                        .otherwise({redirectTo: '/'});
+                            }]);
+                        app.service('MyService', function () {
+                            var self = this;
+                            self.temp = 'sometext';
+                        });
+            </script>
+    </body>
+</html>
